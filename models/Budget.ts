@@ -1,9 +1,11 @@
 import { DataTypes } from "sequelize";
+import { model } from "./db";
 
-class Budget extends Model {
+class Budget extends model {
 
 }
 
 Budget.init({
-	name: DataTypes
-})
+	name: DataTypes.STRING,
+
+})({ sequelize, modelName: "budget" });

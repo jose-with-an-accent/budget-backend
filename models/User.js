@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -49,22 +50,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a = require("./db"), sequelize = _a.sequelize, Model = _a.Model, DataTypes = _a.DataTypes;
+exports.__esModule = true;
+var _a = require("./db"), sequelize = _a.sequelize, model = _a.model, DataTypes = _a.DataTypes;
 var User = /** @class */ (function (_super) {
     __extends(User, _super);
     function User() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return User;
-}(Model));
+}(model));
 User.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     name: DataTypes.STRING
 }, { sequelize: sequelize, modelName: 'user' });
+function saveUser(username, password, name) {
+    return __awaiter(this, void 0, void 0, function () {
+        var user, e_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, User.create({ username: username, password: password, name: name })];
+                case 1:
+                    user = _a.sent();
+                    return [2 /*return*/, [user, null]];
+                case 2:
+                    e_1 = _a.sent();
+                    return [2 /*return*/, [null, e_1]];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function insertDemoUser() {
     return __awaiter(this, void 0, void 0, function () {
-        var u, e_1;
+        var u, e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -77,8 +98,8 @@ function insertDemoUser() {
                     u = _a.sent();
                     return [3 /*break*/, 4];
                 case 3:
-                    e_1 = _a.sent();
-                    console.log(e_1);
+                    e_2 = _a.sent();
+                    console.log(e_2);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -87,7 +108,7 @@ function insertDemoUser() {
 }
 function connectToDB() {
     return __awaiter(this, void 0, void 0, function () {
-        var e_2;
+        var e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -97,7 +118,7 @@ function connectToDB() {
                     _a.sent();
                     return [3 /*break*/, 3];
                 case 2:
-                    e_2 = _a.sent();
+                    e_3 = _a.sent();
                     console.error("Could not connect to db");
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
@@ -105,7 +126,9 @@ function connectToDB() {
         });
     });
 }
-module.exports = {
-    connectToDB: connectToDB,
+var UserUtils = {
+    findOne: User.findOne,
+    findAll: User.findAll,
     insertDemoUser: insertDemoUser
 };
+exports["default"] = UserUtils;

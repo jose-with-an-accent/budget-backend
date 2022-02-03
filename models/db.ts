@@ -1,8 +1,8 @@
-import { Sequelize, Model, DataTypes } from 'sequelize'
-import {AccountTransaction} from './Transaction'
-const User = require('./User')
+import { Sequelize, Model as model } from 'sequelize'
+
 const sequelize = new Sequelize({
 	dialect: 'sqlite',
 	storage: 'uwu.db'
 })
-export {AccountTransaction, User, sequelize, Model, DataTypes}
+
+export {sequelize, model}

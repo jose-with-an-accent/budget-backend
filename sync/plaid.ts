@@ -1,0 +1,1 @@
+class PlaidSyncService extends SyncService

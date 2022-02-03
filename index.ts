@@ -28,7 +28,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
 app.use(expressSession({
-	secret: settings,
+	secret: SETTINGS.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false,
 }))

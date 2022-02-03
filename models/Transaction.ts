@@ -1,4 +1,4 @@
-import {DataTypes} from './db'
+import {DataTypes} from 'sequelize'
 const { sequelize, Model } = require('./db')
 
 class AccountTransaction extends Model {
@@ -10,7 +10,14 @@ AccountTransaction.init({
 	memo: DataTypes.STRING,
 	amount: DataTypes.INTEGER,
 })({sequelize, modelName: 'transaction'})
-async function init() {
-	await AccountTransaction.sync()
+
+const AccountHandlers = {
+	init: async () => {
+		await AccountTransaction.sync()
+	},
+	findOne: AccountTransaction.findOne,
+	findAll: AccountTransaction.findAll,
+
 }
-export {AccountTransaction, init}
+export {AccountTransaction}
+export default AccountHandlers

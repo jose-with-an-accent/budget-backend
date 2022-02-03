@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 /* BEGIN SETTINGS */
+var Settings_1 = require("./Settings");
 var PORT = 3000;
 var USER_STORE = {
     findByUsername: function (username) { return ({
@@ -24,7 +25,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(expressSession({
-    secret: '45424928',
+    secret: Settings_1["default"].SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -32,9 +33,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 /* END MIDDLEWARE */
 var CURRENT_USER_ID = 1;
-app.get('/budgets', function (req, res) {
-    res.send(Budget);
-});
 passport.use(new LocalStrategy(function (username, password, done) {
     var user = USER_STORE.findByUsername(username);
     if (!user || !user.validatePassword(password)) {

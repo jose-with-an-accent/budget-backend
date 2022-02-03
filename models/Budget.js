@@ -16,13 +16,14 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var sequelize_1 = require("sequelize");
+var db_1 = require("./db");
 var Budget = /** @class */ (function (_super) {
     __extends(Budget, _super);
     function Budget() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return Budget;
-}(Model));
+}(db_1.model));
 Budget.init({
-    name: sequelize_1.DataTypes
-});
+    name: sequelize_1.DataTypes.STRING
+})({ sequelize: sequelize, modelName: "budget" });

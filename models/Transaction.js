@@ -51,8 +51,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.init = exports.AccountTransaction = void 0;
-var db_1 = require("./db");
+exports.AccountTransaction = void 0;
+var sequelize_1 = require("sequelize");
 var _a = require('./db'), sequelize = _a.sequelize, Model = _a.Model;
 var AccountTransaction = /** @class */ (function (_super) {
     __extends(AccountTransaction, _super);
@@ -63,12 +63,12 @@ var AccountTransaction = /** @class */ (function (_super) {
 }(Model));
 exports.AccountTransaction = AccountTransaction;
 AccountTransaction.init({
-    name: db_1.DataTypes.STRING,
-    memo: db_1.DataTypes.STRING,
-    amount: db_1.DataTypes.INTEGER
+    name: sequelize_1.DataTypes.STRING,
+    memo: sequelize_1.DataTypes.STRING,
+    amount: sequelize_1.DataTypes.INTEGER
 })({ sequelize: sequelize, modelName: 'transaction' });
-function init() {
-    return __awaiter(this, void 0, void 0, function () {
+var AccountHandlers = {
+    init: function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, AccountTransaction.sync()];
@@ -77,6 +77,8 @@ function init() {
                     return [2 /*return*/];
             }
         });
-    });
-}
-exports.init = init;
+    }); },
+    findOne: AccountTransaction.findOne,
+    findAll: AccountTransaction.findAll
+};
+exports["default"] = AccountHandlers;
