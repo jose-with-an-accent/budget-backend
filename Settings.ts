@@ -1,0 +1,10 @@
+import 'dotenv/config'
+enum DB_TYPES {
+	POSTGRES, SQLITE
+}
+const SETTINGS = {
+	DB_TYPES: DB_TYPES.POSTGRES,
+	DB_CONN_STRING: "",
+	SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET
+}
+export default SETTINGS
