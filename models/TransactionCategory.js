@@ -17,18 +17,14 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var sequelize_1 = require("sequelize");
 var db_1 = require("./db");
-/* make sure to rename AccountTransaction in the future; can't use transaction because of Sequelize */
-var AccountTransaction = /** @class */ (function (_super) {
-    __extends(AccountTransaction, _super);
-    function AccountTransaction() {
+var TransactionCategory = /** @class */ (function (_super) {
+    __extends(TransactionCategory, _super);
+    function TransactionCategory() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return AccountTransaction;
+    return TransactionCategory;
 }(db_1.model));
-AccountTransaction.init({
-    description: sequelize_1.DataTypes.STRING,
-    date: sequelize_1.DataTypes.STRING,
-    balance: sequelize_1.DataTypes.DECIMAL,
-    amount: sequelize_1.DataTypes.DECIMAL
-}, { sequelize: db_1.sequelize, modelName: 'transaction' });
-exports["default"] = AccountTransaction;
+TransactionCategory.init({
+    name: sequelize_1.DataTypes.STRING
+}, { sequelize: db_1.sequelize, modelName: 'transaction_category' });
+exports["default"] = TransactionCategory;

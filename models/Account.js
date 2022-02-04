@@ -15,20 +15,25 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var _a = require("./db"), sequelize = _a.sequelize, model = _a.model;
 var sequelize_1 = require("sequelize");
-var db_1 = require("./db");
-/* make sure to rename AccountTransaction in the future; can't use transaction because of Sequelize */
-var AccountTransaction = /** @class */ (function (_super) {
-    __extends(AccountTransaction, _super);
-    function AccountTransaction() {
+var Account = /** @class */ (function (_super) {
+    __extends(Account, _super);
+    function Account() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return AccountTransaction;
-}(db_1.model));
-AccountTransaction.init({
-    description: sequelize_1.DataTypes.STRING,
-    date: sequelize_1.DataTypes.STRING,
-    balance: sequelize_1.DataTypes.DECIMAL,
-    amount: sequelize_1.DataTypes.DECIMAL
-}, { sequelize: db_1.sequelize, modelName: 'transaction' });
-exports["default"] = AccountTransaction;
+    return Account;
+}(model));
+Account.init({
+    provider_name: sequelize_1.DataTypes.STRING,
+    provider_id: sequelize_1.DataTypes.STRING,
+    account_id: sequelize_1.DataTypes.STRING,
+    account_name: sequelize_1.DataTypes.STRING,
+    account_type: sequelize_1.DataTypes.STRING,
+    account_balance: sequelize_1.DataTypes.DECIMAL
+}, { sequelize: sequelize, modelName: 'account' });
+var AccountUtils = {
+    findOne: Account.findOne,
+    findAll: Account.findAll
+};
+exports["default"] = Account;

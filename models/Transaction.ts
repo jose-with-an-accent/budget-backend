@@ -6,21 +6,11 @@ class AccountTransaction extends model {
 }
 
 AccountTransaction.init({
-	name: DataTypes.STRING,
-	memo: DataTypes.STRING,
-	amount: DataTypes.FLOAT, //later might use integer for more precision
-	balance: DataTypes.FLOAT,
+	description: DataTypes.STRING,
+	date: DataTypes.STRING,
+	balance: DataTypes.DECIMAL,
+	amount: DataTypes.DECIMAL,
 
-}, {sequelize, modelName: 'transaction'})
+},  {sequelize, modelName: 'transaction'})
 
-const AccountHandlers = {
-	init: async () => {
-		await AccountTransaction.sync()
-	},
-	findOne: AccountTransaction.findOne,
-	findAll: AccountTransaction.findAll,
-	build: AccountTransaction.build,
-
-}
-export {AccountTransaction}
-export default AccountHandlers
+export default AccountTransaction;

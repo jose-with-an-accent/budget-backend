@@ -1,7 +1,5 @@
-import { Transaction } from "sequelize/dist"
-
-const { sequelize, model, DataTypes } = require("./db")
-
+const { sequelize, model } = require("./db")
+import { DataTypes } from "sequelize"
 class Account extends model {
 
 }
@@ -12,14 +10,12 @@ Account.init({
 	account_name: DataTypes.STRING,
 	account_type: DataTypes.STRING,
 	account_balance: DataTypes.DECIMAL,
-})
+}, {sequelize, modelName: 'account'})
 
-Account.hasMany(Transaction, {foreignKey: 'transaction_id'});
 
 const AccountUtils = {
 	findOne: Account.findOne,
 	findAll: Account.findAll,
 }
 
-export { Account };
-export default AccountUtils;
+export default Account;

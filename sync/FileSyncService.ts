@@ -1,6 +1,6 @@
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
-import {AccountTransaction} from '../Models/Transaction';
+import AccountTransaction from '../Models/Transaction';
 enum FileTypes {
 	JSON, CSV
 }
@@ -16,11 +16,16 @@ export default class FileSyncService {
 		let transactions: Array<TransactionT> = [];
 		fs.createReadStream(filePath)
 			.pipe(csv())
-			.on('data', (data) => {
-				const t = {description: data["Description"], date: data["Posting Date"], balance: data["Amount"], amount: data["Balance"]}
-				transactions.push(t);
+			.on('data', async (data) => {
+				console.log(data);
+				transactions.push({description: data["Description"], date: data["Posting Date"], balance: data["Amount"], amount: data["Balance"]})
+				try {
+				const a = await AccountTransaction.build({name: data["Description"], balance: data["Balance"], amount: data["Amount"]})
+				} catch (e) {
+					console.log(e)
+				}
 			})
-		console.log(transactions)
+			
 		return transactions;
 	}
 }

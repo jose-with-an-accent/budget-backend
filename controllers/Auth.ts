@@ -1,7 +1,10 @@
 import UserUtils from '../models/User';
-import {express} from 'express';
-const router = express.router();
-const AuthController = {
+import * as path from 'path';
+const router = require('express').Router();
 
-}
-export default AuthController;
+
+
+router.get('/', (req, res) => {
+	res.sendFile(path.resolve('./static/login.html'))
+})
+module.exports = router;

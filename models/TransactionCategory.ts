@@ -7,3 +7,4 @@ TransactionCategory.init({
 	name: DataTypes.STRING,
 }, {sequelize, modelName: 'transaction_category'})
 
+export default TransactionCategory

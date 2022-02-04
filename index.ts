@@ -1,11 +1,17 @@
 import { Request, Response } from "express"
 import SETTINGS from './Settings'
+import * as fileUpload from 'express-fileupload'
 /* BEGIN SETTINGS */
 
 /* END SETTINGS */
 
 const express = require('express')
-
+import * as fs from 'fs'
+import BudgetHelper, {Budget} from "./models/Budget"
+import Account from "./models/Account"
+import User from "./models/User"
+import AccountTransaction from "./Models/Transaction"
+import TransactionCategory from "./models/TransactionCategory"
 /* MIDDLEWARE FOR HANDLING AUTH */
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
@@ -14,11 +20,6 @@ const bodyParser = require('body-parser')
 const expressSession = require('express-session')
 const app = express()
 const path = require('path')
-
-import AuthController from './controllers/Auth'
-import BudgetController from './controllers/Budgets'
-
-
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
@@ -26,6 +27,9 @@ app.use(expressSession({
 	secret: SETTINGS.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false,
+}))
+app.use(fileUpload({
+	createParentPath: true,
 }))
 //NOTE - MULTIUSER AUTH IS DISABLED FOR NOW
 // app.use(passport.initialize())
@@ -44,13 +48,25 @@ const CURRENT_USER_ID = 1;
 // 		}
 // 	)
 // )
+//mount all of the routes
 
-// app.post('/', passport.authenticate('local'), (req, res) => res.send("Logged in!"))
-app.get('/', (req, res) => {
-	res.sendFile(path.resolve('./auth/login.html'))
+//initialize the database
+Budget.sync()
+Account.sync()
+User.sync()
+AccountTransaction.sync()
+TransactionCategory.sync()
+
+
+fs.readdirSync('./controllers').forEach(file => {
+	if (file.endsWith('.js')) {
+		console.log("Trying to mount controller: " + file)
+		const controller = require('./controllers/' + file)
+		const route = file.replace('.js', '')
+		app.use('/' + route, controller)
+		console.log(controller)
+	}
 })
-app.use(`${SETTINGS.BASE_URL}/auth`, AuthController);
-app.use(`${SETTINGS.BASE_URL}/budget`, BudgetController);
 
 
 app.listen(SETTINGS.PORT, console.log(`Running on port ${SETTINGS.PORT}`))

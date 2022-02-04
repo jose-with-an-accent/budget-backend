@@ -9,6 +9,7 @@ var DB_TYPES;
 })(DB_TYPES || (DB_TYPES = {}));
 var SETTINGS = {
     DOMAIN: '',
+    PORT: 3000,
     DB_TYPES: DB_TYPES.POSTGRES,
     DB_CONN_STRING: "",
     SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET,

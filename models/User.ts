@@ -1,7 +1,7 @@
-import { Budget } from "./Budget"
+import Budget from "./Budget"
+import { DataTypes } from 'sequelize';
 
-const { sequelize, model, DataTypes } = require("./db")
-
+const { sequelize, model } = require("./db")
 class User extends model {
 
 }
@@ -12,8 +12,6 @@ User.init({
 
 }, { sequelize, modelName: 'user' })
 /* set up relationship to budgets */
-User.hasMany(Budget, { foreignKey: 'user_id' })
-
 async function saveUser(username: string, password: string, name: string) {
 	try {
 		const user = await User.create({username: username, password: password, name: name})
@@ -44,5 +42,4 @@ const UserUtils = {
 	findAll: User.findAll,
 	insertDemoUser: insertDemoUser
 }
-export { User };
-export default UserUtils;
+export default User;

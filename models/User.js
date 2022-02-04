@@ -51,9 +51,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.User = void 0;
-var Budget_1 = require("./Budget");
-var _a = require("./db"), sequelize = _a.sequelize, model = _a.model, DataTypes = _a.DataTypes;
+var sequelize_1 = require("sequelize");
+var _a = require("./db"), sequelize = _a.sequelize, model = _a.model;
 var User = /** @class */ (function (_super) {
     __extends(User, _super);
     function User() {
@@ -61,14 +60,12 @@ var User = /** @class */ (function (_super) {
     }
     return User;
 }(model));
-exports.User = User;
 User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    name: DataTypes.STRING
+    username: sequelize_1.DataTypes.STRING,
+    password: sequelize_1.DataTypes.STRING,
+    name: sequelize_1.DataTypes.STRING
 }, { sequelize: sequelize, modelName: 'user' });
 /* set up relationship to budgets */
-User.hasMany(Budget_1.Budget, { foreignKey: 'user_id' });
 function saveUser(username, password, name) {
     return __awaiter(this, void 0, void 0, function () {
         var user, e_1;
@@ -136,4 +133,4 @@ var UserUtils = {
     findAll: User.findAll,
     insertDemoUser: insertDemoUser
 };
-exports["default"] = UserUtils;
+exports["default"] = User;
