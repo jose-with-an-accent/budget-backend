@@ -1,1 +1,2 @@
-class PlaidSyncService extends SyncService
+class PlaidSyncService {///TODO - Implement sync interface later
+}

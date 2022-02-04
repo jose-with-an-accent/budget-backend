@@ -15,8 +15,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+exports.Budget = void 0;
 var sequelize_1 = require("sequelize");
 var db_1 = require("./db");
+var User_1 = require("./User");
 var Budget = /** @class */ (function (_super) {
     __extends(Budget, _super);
     function Budget() {
@@ -24,6 +26,13 @@ var Budget = /** @class */ (function (_super) {
     }
     return Budget;
 }(db_1.model));
+exports.Budget = Budget;
 Budget.init({
     name: sequelize_1.DataTypes.STRING
-})({ sequelize: sequelize, modelName: "budget" });
+}, { sequelize: db_1.sequelize, modelName: "budget" });
+Budget.belongsTo(User_1.User, { foreignKey: 'user_id' });
+var BudgetUtils = {
+    findOne: Budget.findOne,
+    findAll: Budget.findAll
+};
+exports["default"] = BudgetUtils;
