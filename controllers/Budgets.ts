@@ -27,6 +27,7 @@ router.post('/transaction_upload', async (req, res) => {
 
 			const transactions = FileSyncService.fromFile('./upload/' + fileToAnalyze.name)
 			console.log(transactions)
+
 		}
 
 	} catch (e) {

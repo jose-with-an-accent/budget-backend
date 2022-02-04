@@ -58,11 +58,10 @@ var FileSyncService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log(data);
-                        transactions.push({ description: data["Description"], date: data["Posting Date"], balance: data["Amount"], amount: data["Balance"] });
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, Transaction_1["default"].build({ name: data["Description"], balance: data["Balance"], amount: data["Amount"] })];
+                        return [4 /*yield*/, Transaction_1["default"].create({ name: data["Description"], balance: data["Balance"], amount: data["Amount"] })];
                     case 2:
                         a = _a.sent();
                         return [3 /*break*/, 4];

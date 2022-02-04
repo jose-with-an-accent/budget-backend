@@ -18,14 +18,13 @@ export default class FileSyncService {
 			.pipe(csv())
 			.on('data', async (data) => {
 				console.log(data);
-				transactions.push({description: data["Description"], date: data["Posting Date"], balance: data["Amount"], amount: data["Balance"]})
 				try {
-				const a = await AccountTransaction.build({name: data["Description"], balance: data["Balance"], amount: data["Amount"]})
+					const a = await AccountTransaction.create({ name: data["Description"], balance: data["Balance"], amount: data["Amount"] })
 				} catch (e) {
 					console.log(e)
 				}
 			})
-			
+
 		return transactions;
 	}
 }

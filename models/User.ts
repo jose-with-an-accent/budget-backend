@@ -12,34 +12,50 @@ User.init({
 
 }, { sequelize, modelName: 'user' })
 /* set up relationship to budgets */
-async function saveUser(username: string, password: string, name: string) {
-	try {
-		const user = await User.create({username: username, password: password, name: name})
-		return [user, null]
-	} catch(e) {
-		return [null, e]
-	}
-	// format in [user, error]
+enum LOGIN_ERRORS {
+	INVALID_PASSWORD,
+	INVALUD_USERNAME
 }
-async function insertDemoUser() {
-	try {
-		await sequelize.sync()
-		const u = await User.create({ username: "Jose", password: "45424928", name: "Jose" })
-	} catch (e) {
-		console.log(e)
-	}
-}
-async function connectToDB() {
-	try {
-		await sequelize.authenticate()
-	} catch (e) {
-		console.error("Could not connect to db")
-	}
-}
+class UserUtils {
 
-const UserUtils = {
-	findOne: User.findOne,
-	findAll: User.findAll,
-	insertDemoUser: insertDemoUser
+	static async findUserByEmail(emailAddress) {
+		/**
+		 * Finds a user by email address
+		 * @param {string} emailAddress - the email address to search for
+		 */
+		try {
+			const user = await User.findOne({
+				where: {
+					emailAddress
+				}
+			})
+			return [user, null];
+		}
+		catch (e) {
+			console.log(e)
+			return [null, e];
+		}
+	}
+	static async findUserById(id) {
+		/**
+		 * Finds a user by id
+		 * @param {string} id - the email address to search for
+		 */
+		try {
+			const user = await User.findOne({
+				where: {
+					id: id
+				}
+			})
+			return [user, null];
+		}
+		catch (e) {
+			console.log(e)
+			return [null, e];
+		}
+	}
 }
-export default User;
+//NOTE - will rewrite this later; just trying to hurry up
+
+export { User }
+export default UserUtils;
